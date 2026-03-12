@@ -1,0 +1,163 @@
+
+# ⭐ Star Game
+
+https://img.shields.io/badge/Live%20Demo-Play%20Now-brightgreen?style=for-the-badge&logo=googlechrome](https://stargamexonline.github.io/star-game/)
+
+https://img.shields.io/github/languages/top/stargamexonline/star-game?style=flat-square
+https://img.shields.io/github/repo-size/stargamexonline/star-game?style=flat-square
+https://img.shields.io/badge/Status-Active-blue?style=flat-square
+https://img.shields.io/badge/License-Free-yellow?style=flat-square
+
+---
+
+## 🚀 About the Game
+
+Star Game is a **simple, fast, browser‑based space shooter** built using  
+**HTML5 Canvas, CSS3, and JavaScript**.
+
+Players control a ship, shoot falling stars, avoid obstacles, and score points.  
+Fully works on **mobile, tablet, and PC** — no installation needed.
+
+---
+
+## 🎮 Features
+
+- Smooth player movement  
+- Space shooting mechanics  
+- Falling stars  
+- Score tracking  
+- Increasing difficulty  
+- Mobile responsive  
+- GitHub Pages hosting  
+- Custom domain support  
+
+
+--
+
+## 🎮 Controls
+
+- **Left Arrow** → Move Left  
+- **Right Arrow** → Move Right  
+- **Spacebar** → Shoot  
+
+
+---
+
+## 📁 Folder Structure
+
+
+star-game/
+│ index.html
+│ style.css
+│ game.js
+
+
+---
+
+## 🌐 Live Demo
+
+🔗 https://stargamexonline.github.io/star-game/
+
+---
+
+## 🌍 Custom Domain
+
+Your domain: **https://stargamex.eu.org**
+
+### Cloudflare DNS Records
+
+
+CNAME | www | stargamexonline.github.io
+A     | @   | 185.199.108.153
+A     | @   | 185.199.109.153
+A     | @   | 185.199.110.153
+A     | @   | 185.199.111.153
+
+
+Then:
+
+GitHub → Settings → Pages → **Custom Domain**
+
+
+
+stargamex.eu.org
+
+
+✔ Turn on **Enforce HTTPS**
+
+---
+
+## 📸 Screenshots (add later)
+
+
+screenshots/mobile-login.png
+screenshots/mobile-gameplay.png
+screenshots/desktop-gameplay.png
+
+
+
+*(Upload them to a `/screenshots` folder)*
+
+---
+
+## 🛠 Technologies Used
+
+- HTML5 Canvas  
+- CSS3  
+- JavaScript  
+- GitHub Pages  
+
+---
+
+
+## 📦 Future Improvements
+
+- Enemies & boss fights  
+- Sound effects  
+- Background music  
+- Power‑ups  
+- High‑score system  
+- Login system  
+- Mobile touch controls  
+- Multiplayer (Socket.io)  
+- Game lobby / rooms  
+
+---
+
+## 📜 License
+
+This project is **free for personal & learning use**.
+
+---
+
+## 📬 Contact
+
+**Star Game Developer**  
+📧 Email: ddav880@gmail.com  
+🌐 Live Site: https://stargamexonline.github.io/star-game/
+
+
+
+
+
+
+
+cd server
+npm install
+npm start
+
+
+
+ http://localhost:3000 (configured inside game.js).
+
+
+https://img.shields.io/badge/Live%20Demo-Play%20Now-brightgreen?style=for-the-badge&logo=googlechrome](https://stargamexonline.github.io/star-game/)
+
+
+
+
+
+
+
+
+
