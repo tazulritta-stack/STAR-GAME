@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Star-gameX | Home</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <div class="brand">⭐ Star-gameX</div>
+
+    <div class="lang-switch" aria-label="Language switch">
+      <button type="button" onclick="setLang('en')">EN</button>
+      <button type="button" onclick="setLang('ar')">AR</button>
+    </div>
+  </header>
+
+  <aside class="sidebar" role="navigation" aria-label="Main navigation">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="games.html">Games</a></li>
+      <li><a href="login.html">Login</a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <h1 data-en="Welcome to Star-gameX!" data-ar="مرحباً بك في Star-gameX!">Welcome to Star-gameX!</h1>
+
+    <p data-en="Your online gaming platform with 100+ games."
+       data-ar="منصتك للألعاب عبر الإنترنت مع أكثر من 100 لعبة.">
+       Your online gaming platform with 100+ games.
+    </p>
+
+    <p><a href="games.html">Browse games</a></p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
