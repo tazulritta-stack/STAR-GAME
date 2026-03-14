@@ -1,0 +1,22 @@
+// script.js - language switch + accessibility				
+(function () {				
+const STORAGE_KEY = 'starGameLang';				
+const DEFAULT_LANG = 'en';				
+const LANG_ATTRS = ['en', 'ar']; // extend here if you add languages				
+				
+// Find all elements that have any data-<lang> attribute (e.g. data-en, data-ar)				
+function getTranslatableElements() {				
+const selector = LANG_ATTRS.map(l => `[data-${l}]`).join(',');				
+return Array.from(document.querySelectorAll(selector));				
+}				
+				
+function setAriaPressedOnButtons(activeLang) {				
+const buttons = document.querySelectorAll('.lang-switch button');				
+buttons.forEach(btn => {				
+// Determine language of button by its dataset or text content (EN/AR)				
+const btnLang = (btn.dataset.lang || btn.textContent || '').trim().toLowerCase();				
+const matches = btnLang === activeLang;				
+btn.setAttribute('aria-pressed', matches ? 'true' : 'false');				
+btn.classList.toggle('active', matches);				
+});				
+				
