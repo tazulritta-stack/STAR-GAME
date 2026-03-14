@@ -1,0 +1,7 @@
+star-gamex.github.ioindex.html  → main home page
+
+2.  login.html  → login page
+
+3.  games.html  or embed games inside  index.html 
+
+4. Optional  style.css  → makes it look better
