@@ -1,0 +1,179 @@
+// --- Simple demo auth using localStorage (works on GitHub Pages) ---
+// NOTE: This is NOT secure for real apps. For real login/reset email, use Firebase.
+
+const LS_USERS = "starx_users";
+const LS_SESSION = "starx_session";
+const LS_GAMES = "starx_games";
+
+function getUsers(){
+  return JSON.parse(localStorage.getItem(LS_USERS) || "[]");
+}
+function setUsers(users){
+  localStorage.setItem(LS_USERS, JSON.stringify(users));
+}
+function getSession(){
+  return JSON.parse(localStorage.getItem(LS_SESSION) || "null");
+}
+function setSession(session){
+  localStorage.setItem(LS_SESSION, JSON.stringify(session));
+}
+function clearSession(){
+  localStorage.removeItem(LS_SESSION);
+}
+
+function seedDemoData(){
+  // Create demo user if not exists
+  const users = getUsers();
+  const hasDemo = users.some(u => u.email === "demo@starx.com");
+  if(!hasDemo){
+    users.push({ email:"demo@starx.com", password:"1234" });
+    setUsers(users);
+  }
+
+  // Seed games if empty
+  const games = JSON.parse(localStorage.getItem(LS_GAMES) || "[]");
+  if(games.length === 0){
+    localStorage.setItem(LS_GAMES, JSON.stringify([
+      { title:"Puzzle Game", link:"https://example.com/puzzle" },
+      { title:"Racing Game", link:"https://example.com/racing" }
+    ]));
+  }
+}
+seedDemoData();
+
+function requireLogin(){
+  const session = getSession();
+  if(!session){
+    window.location.href = "login.html";
+  }
+  return session;
+}
+
+// --- Login page ---
+document.addEventListener("DOMContentLoaded", () => {
+  const loginForm = document.getElementById("loginForm");
+  if(loginForm){
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+      const pass = document.getElementById("loginPassword").value;
+
+      const users = getUsers();
+      const user = users.find(u => u.email === email && u.password === pass);
+
+      const msg = document.getElementById("loginMsg");
+      if(!user){
+        msg.textContent = "❌ Wrong email or password.";
+        return;
+      }
+      setSession({ email });
+      msg.textContent = "✅ Login success! Redirecting...";
+      setTimeout(() => window.location.href = "games.html", 700);
+    });
+  }
+
+  // --- Reset page ---
+  const resetForm = document.getElementById("resetForm");
+  if(resetForm){
+    resetForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("resetEmail").value.trim().toLowerCase();
+      const newPass = document.getElementById("resetNewPassword").value;
+
+      const users = getUsers();
+      const i = users.findIndex(u => u.email === email);
+      const msg = document.getElementById("resetMsg");
+
+      if(i === -1){
+        msg.textContent = "❌ Email not found. Try demo@starx.com";
+        return;
+      }
+      users[i].password = newPass;
+      setUsers(users);
+      msg.textContent = "✅ Password updated. Go login now.";
+      setTimeout(() => window.location.href = "login.html", 900);
+    });
+  }
+
+  // --- Games page ---
+  const gamesList = document.getElementById("gamesList");
+  const addGameForm = document.getElementById("addGameForm");
+  const logoutBtn = document.getElementById("logoutBtn");
+  const userLabel = document.getElementById("userLabel");
+
+  if(gamesList){
+    const session = requireLogin();
+    if(userLabel) userLabel.textContent = `Logged in as: ${session.email}`;
+
+    function renderGames(){
+      const games = JSON.parse(localStorage.getItem(LS_GAMES) || "[]");
+      gamesList.innerHTML = "";
+      games.forEach((g, idx) => {
+        const div = document.createElement("div");
+        div.className = "game";
+        div.innerHTML = `
+          <div><strong>${escapeHtml(g.title)}</strong></div>
+          <div>${g.link}Play / Open</a></div>
+          <button class="btn btn-outline remove" data-idx="${idx}" type="button">Remove</button>
+        `;
+        gamesList.appendChild(div);
+      });
+
+      gamesList.querySelectorAll(".remove").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const idx = Number(btn.dataset.idx);
+          const games = JSON.parse(localStorage.getItem(LS_GAMES) || "[]");
+          games.splice(idx, 1);
+          localStorage.setItem(LS_GAMES, JSON.stringify(games));
+          renderGames();
+        });
+      });
+    }
+
+    renderGames();
+
+    if(addGameForm){
+      addGameForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const title = document.getElementById("gameTitle").value.trim();
+        const link = document.getElementById("gameLink").value.trim();
+
+        if(!/^https?:\/\//i.test(link)){
+          alert("Please enter a valid URL starting with http:// or https://");
+          return;
+        }
+
+        const games = JSON.parse(localStorage.getItem(LS_GAMES) || "[]");
+        games.push({ title, link });
+        localStorage.setItem(LS_GAMES, JSON.stringify(games));
+        addGameForm.reset();
+        renderGames();
+      });
+    }
+
+    if(logoutBtn){
+      logoutBtn.addEventListener("click", () => {
+        clearSession();
+        window.location.href = "login.html";
+      });
+    }
+  }
+
+  // Optional: if user clicks "Go to Games" on index without login
+  const goGamesBtn = document.getElementById("goGamesBtn");
+  if(goGamesBtn){
+    goGamesBtn.addEventListener("click", (e) => {
+      const session = getSession();
+      if(!session){
+        e.preventDefault();
+        window.location.href = "login.html";
+      }
+    });
+  }
+});
+
+function escapeHtml(str){
+  return str.replace(/[&<>"']/g, (m) => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[m]));
+}
