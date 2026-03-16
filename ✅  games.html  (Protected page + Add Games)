@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Games - StarX Game</title>
+  style.css
+  script.js</script>
+</head>
+<body>
+  <main class="container">
+    <div class="topbar">
+      <h1>Games</h1>
+      <div class="btn-row">
+        <button class="btn btn-outline" id="logoutBtn" type="button">Logout</button>
+      </div>
+    </div>
+
+    <p class="muted" id="userLabel"></p>
+
+    <section class="card">
+      <h2>Add a Game</h2>
+      <form id="addGameForm" class="grid">
+        <input id="gameTitle" placeholder="Game title" required />
+        <input id="gameLink" placeholder="Game URL (https://...)" required />
+        <button class="btn" type="submit">Add</button>
+      </form>
+      <p class="muted small">Example URL: https://example.com/game</p>
+    </section>
+
+    <section>
+      <h2>Game List</h2>
+      <div class="games" id="gamesList"></div>
+    </section>
+  </main>
+</body>
+</html>
